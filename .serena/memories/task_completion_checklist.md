@@ -1,0 +1,11 @@
+Before marking a task done:
+- Code quality: `ruff format .` then `ruff check .` (fix issues) 
+- Types: `mypy src` passes for changed modules
+- Tests: `pytest -q` green; add/adjust tests for new logic
+- Docs: Update README or in-repo docs if behavior/commands changed
+- Scripts: If CLI surface changed, update `--help` text and examples
+- Prompts: If prompt templates changed, validate with a dry-run sample
+- Config: Update `.env.example` when new env vars are introduced
+- Data outputs: Verify CSV/Notion export still works (dry run)
+- Changelog/commit: Use Conventional Commit message summarizing the change
+- Review: Scan for secrets, large files, or accidental data in repo
