@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Usage: scripts/research.sh <slug|path|topic> [--date YYYY-MM-DD]
-# Creates 02_クリーン/YYYY-MM-DD_<slug>[ -vN].md based on templates/clean.md
+# Creates 02_クリーン/<slug>_YYYY-MM-DD[-vN].md based on templates/clean.md
 # - If input is a path or slug that matches a memo, sets source to that memo path
 # - If input is a free topic, source will be empty
 
@@ -71,10 +71,10 @@ if [[ -f "$ROOT/templates/clean.md" ]]; then
       -e "s/{{TAGS}}/${TAGS_LINE}/g" \
       "$ROOT/templates/clean.md" > "$OUT_PATH"
 else
-  cat > "$OUT_PATH" <<EOF
+cat > "$OUT_PATH" <<EOF
 ---
 title: ${TITLE}
-slug: ${DATE_OUT}_${SLUG_BARE}
+slug: ${SLUG_BARE}_${DATE_OUT}
 phase: clean
 status: draft
 tags: [${TAGS_LINE}]
@@ -136,4 +136,3 @@ echo "$OUT_PATH"
 if [[ -x "$ROOT/scripts/gen_index.sh" ]]; then
   "$ROOT/scripts/gen_index.sh" >/dev/null || true
 fi
-

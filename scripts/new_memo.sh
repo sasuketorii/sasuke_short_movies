@@ -18,7 +18,7 @@ SLUG_BARE=$(echo "$TITLE" \
   | sed -E 's/[^a-z0-9一-龯ぁ-んァ-ンー]+/-/g' \
   | sed -E 's/^-+|-+$//g')
 
-SLUG_FILE="${DATE}_${SLUG_BARE}"
+SLUG_FILE="${SLUG_BARE}_${DATE}"
 DIR="01_メモ"
 FILE_PATH="${DIR}/${SLUG_FILE}.md"
 
@@ -69,4 +69,3 @@ EOF
 fi
 
 echo "$FILE_PATH"
-

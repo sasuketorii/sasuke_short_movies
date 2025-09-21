@@ -1,11 +1,11 @@
 ---
 title: 海外トップインフルエンサーに学ぶ、バイラル台本3つの黄金モデル
-slug: 2025-09-15_viral-script-models
-phase: memo
+slug: viral-script-models_2025-09-15
+phase: knowledge
 status: draft
 tags: [shorts, script, template, models]
 created: 2025-09-15
-updated: 2025-09-15
+updated: 2025-09-21
 source: ""
 ---
 
@@ -79,16 +79,3 @@ source: ""
 - 即実行可能なCTA: 視聴後すぐにできる小さなアクションを必ず含める
 
 これらのテンプレートを、あなたの専門分野やターゲットに合わせてカスタマイズすることで、「燻っている人」の心に響く、バイラルを生むショート動画を作成できます。
-# Part 1: 海外トップインフルエンサーに学ぶ、バイラル台本3つの黄金モデル
----
-title: 海外トップインフルエンサーに学ぶ、バイラル台本3つの黄金モデル
-slug: 2025-09-15_viral-script-models
-phase: memo
-status: draft
-tags: [shorts, script, template, models]
-created: 2025-09-15
-updated: 2025-09-15
-source: ""
----
-
-# Part 1: 海外トップインフルエンサーに学ぶ、バイラル台本3つの黄金モデル

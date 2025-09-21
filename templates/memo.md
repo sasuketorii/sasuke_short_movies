@@ -1,6 +1,6 @@
 ---
 title: {{TITLE}}
-slug: {{DATE}}_{{SLUG}}
+slug: {{SLUG}}_{{DATE}}
 phase: memo
 status: draft
 tags: [{{TAGS}}]
@@ -19,4 +19,3 @@ source: ""
 
 ## 気づき・仮説（推測は推測と明記）
 - 
-

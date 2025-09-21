@@ -1,12 +1,12 @@
 ---
 title: {{TITLE}}
-slug: {{DATE}}_{{SLUG}}
+slug: {{SLUG}}_{{DATE}}
 phase: clean
 status: draft
 tags: [{{TAGS}}]
 created: {{DATE}}
 updated: {{DATE}}
-source: 01_メモ/{{DATE}}_{{SLUG}}.md
+source: 01_メモ/{{SLUG}}_{{DATE}}.md
 ---
 
 # 一文サマリ
@@ -35,4 +35,3 @@ source: 01_メモ/{{DATE}}_{{SLUG}}.md
 ---
 ## 参考URL（必ず一次情報を優先）
 - [タイトル — ドメイン](URL)
-

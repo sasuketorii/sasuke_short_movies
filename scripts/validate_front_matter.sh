@@ -23,6 +23,10 @@ check_file() {
   local base
   base=$(basename "$f")
   local expected_slug=${base%.md}
+  # allow -vN only if it is the true end of filename (before .md)
+  if [[ "$expected_slug" =~ -v[0-9]+$ ]]; then
+    expected_slug=${expected_slug%-v[0-9]*}
+  fi
 
   # Basic checks
   [[ -n "$title" ]] || { echo "[ERR] title missing: $rel"; errors=$((errors+1)); }
@@ -34,7 +38,12 @@ check_file() {
 
   # Slug matches filename
   if [[ -n "$slug" && "$slug" != "$expected_slug" ]]; then
-    echo "[WARN] slug differs from filename: slug=$slug file=$expected_slug ($rel)"
+    # Also allow filenames with an embedded -vN before date (e.g., slug-v2_YYYY-MM-DD)
+    local expected_stripped
+    expected_stripped=$(echo "$expected_slug" | sed -E 's/-v[0-9]+(_|$)/\1/')
+    if [[ "$slug" != "$expected_stripped" ]]; then
+      echo "[WARN] slug differs from filename: slug=$slug file=$expected_slug ($rel)"
+    fi
   fi
 
   # Phase-specific checks
@@ -47,6 +56,8 @@ check_file() {
     manuscript)
       if [[ -z "$source" ]]; then echo "[ERR] manuscript requires source (clean path): $rel"; errors=$((errors+1)); fi
       ;;
+    knowledge)
+      ;; # knowledge docs allowed; source optional
     *)
       echo "[WARN] unknown phase: $phase ($rel)"
       ;;
@@ -65,4 +76,3 @@ if [[ $errors -gt 0 ]]; then
 else
   echo "All front matter looks good."
 fi
-

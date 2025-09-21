@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Usage: scripts/draft.sh <slug|clean-path> [--date YYYY-MM-DD]
-# Creates 03_原稿/YYYY-MM-DD_<slug>[-vN].md based on templates/manuscript.md
+# Creates 03_原稿/<slug>_YYYY-MM-DD[-vN].md based on templates/manuscript.md
 
 HERE=$(cd "$(dirname "$0")" && pwd)
 ROOT=$(cd "$HERE/.." && pwd)
@@ -69,7 +69,7 @@ else
   cat > "$OUT_PATH" <<EOF
 ---
 title: ${TITLE}
-slug: ${DATE_OUT}_${SLUG_BARE}
+slug: ${SLUG_BARE}_${DATE_OUT}
 phase: manuscript
 status: draft
 tags: [${TAGS_LINE}]
@@ -117,4 +117,3 @@ echo "$OUT_PATH"
 if [[ -x "$ROOT/scripts/gen_index.sh" ]]; then
   "$ROOT/scripts/gen_index.sh" >/dev/null || true
 fi
-

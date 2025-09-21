@@ -25,14 +25,14 @@ next_path() {
   local dir=$1
   local date=$2
   local slug=$3
-  local base="${dir}/${date}_${slug}.md"
+  local base="${dir}/${slug}_${date}.md"
   if [[ ! -e "$base" ]]; then
     echo "$base"
     return 0
   fi
   local n=2
   while true; do
-    local cand="${dir}/${date}_${slug}-v${n}.md"
+    local cand="${dir}/${slug}_${date}-v${n}.md"
     if [[ ! -e "$cand" ]]; then
       echo "$cand"
       return 0
@@ -46,8 +46,13 @@ next_path() {
 find_latest_by_slug() {
   local dir=$1
   local slug=$2
-  local latest
-  latest=$(ls -1 "${dir}"/*_"${slug}"*.md 2>/dev/null | sort -r | head -n1 || true)
+  local latest=""
+  # New pattern: slug_YYYY-MM-DD
+  latest=$(ls -1 "${dir}/${slug}"_*.md 2>/dev/null | sort -r | head -n1 || true)
+  if [[ -z "$latest" ]]; then
+    # Backward compatibility: YYYY-MM-DD_slug
+    latest=$(ls -1 "${dir}"/*_"${slug}"*.md 2>/dev/null | sort -r | head -n1 || true)
+  fi
   echo "$latest"
 }
 
@@ -55,16 +60,32 @@ find_latest_by_slug() {
 # Echos: slug_bare\tTitle
 slug_title_from_file() {
   local src=$1
-  local slug_field title_field fname slug_from_fname
+  local slug_field title_field fname slug_bare="" name base
   slug_field=$(fm_get "$src" slug | tr -d '"')
   title_field=$(fm_get "$src" title | sed -E 's/^"|"$//g')
-  fname=$(basename "$src" .md)
-  slug_from_fname=${fname#*_}
-  local slug_bare
+  name=$(basename "$src" .md)
+  # Derive slug_bare from slug_field if present
   if [[ -n "$slug_field" ]]; then
-    slug_bare=${slug_field#*_}
-  else
-    slug_bare=$slug_from_fname
+    if echo "$slug_field" | grep -Eq '^([0-9]{4}-[0-9]{2}-[0-9]{2})_'; then
+      slug_bare=${slug_field#*_}
+    elif echo "$slug_field" | grep -Eq '_([0-9]{4}-[0-9]{2}-[0-9]{2})(-v[0-9]+)?$'; then
+      slug_bare=${slug_field%_*}
+      slug_bare=${slug_bare%-v[0-9]*}
+    else
+      # Fallback: remove leading date_ or trailing _date from fname
+      base=$name
+    fi
+  fi
+  if [[ -z "$slug_bare" ]]; then
+    # Try from filename
+    if echo "$name" | grep -Eq '^([0-9]{4}-[0-9]{2}-[0-9]{2})_'; then
+      slug_bare=${name#*_}
+    elif echo "$name" | grep -Eq '_([0-9]{4}-[0-9]{2}-[0-9]{2})(-v[0-9]+)?$'; then
+      slug_bare=${name%_*}
+      slug_bare=${slug_bare%-v[0-9]*}
+    else
+      slug_bare=$name
+    fi
   fi
   local title="$title_field"
   if [[ -z "$title" ]]; then
@@ -73,4 +94,3 @@ slug_title_from_file() {
   fi
   echo -e "${slug_bare}\t${title}"
 }
-

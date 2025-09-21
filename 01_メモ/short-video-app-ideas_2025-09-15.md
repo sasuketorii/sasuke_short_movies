@@ -1,6 +1,6 @@
 ---
 title: ショート動画のネタ帳
-slug: 2025-09-15_short-video-app-ideas
+slug: short-video-app-ideas_2025-09-15
 phase: memo
 status: draft
 tags: [shorts, apps, script]
@@ -69,4 +69,3 @@ source: ""
 ### 追記ガイド
 - 形式: 「一言フック/秒割台本/推し機能/Bロール/CTA/注意」
 - 候補: Bartender/Hidden Bar/Maccy/Paste なども比較用に
-

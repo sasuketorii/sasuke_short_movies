@@ -1,3 +1,4 @@
+
 Project: sasuke_short
 Purpose (JP): バイラルを産むショート動画のネタ帳作成
 Summary (EN): Build a system that generates, scores, and organizes high-potential ideas for viral short-form videos (TikTok, YouTube Shorts, Reels), optimized for Japanese content.
