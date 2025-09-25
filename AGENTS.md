@@ -68,6 +68,12 @@
 - `/update-index` → `scripts/gen_index.sh`
 - `/validate` → `scripts/validate_front_matter.sh`（front matter整合チェック）
 
+### `/rewrite <mode> "タイトル" [--source <path>] [--tags "a,b"]`
+- 目的: 会話内の直近テキスト（または`--source`のファイル本文）を、ナレッジ準拠の体裁でリライトします。
+- mode: `clean` | `manuscript`
+- 実装: 会話内で `prompts/rewriter.md` を適用（スクリプト不要）。
+- 生成物: `02_クリーン/` または `03_原稿/` に保存。フロントマターとテンプレ構造を必ず満たすこと。
+
 ## リサーチと出典（web.runポリシー）
 - `/research` を受けた場合は必ず web.run を使用します（最新・不安定情報: 価格/仕様/法律/人事/規約/スケジュール/数値主張/新語など）。
 - 出典は最大5点、一次情報優先。本文では要旨を記述し、末尾にMarkdownリンクで列挙します。
@@ -86,4 +92,10 @@
 ## 実装メモ（エージェント向け）
 - `scripts/sasuke.sh` は `/memo` `/research` `/draft` に加え、`/ship` `/onepass` `/update-index` `/validate` を受け付けます。
 - 既存テンプレ（templates/*.md）とナレッジ（knowledge/*.md）を常に参照し、用語・構成・BEタグを揃えます。
+ - リライト時は `prompts/rewriter.md` の出力要件に厳密準拠。口調調整は tone/platform/voice_strength 変数で制御します。
+
+## 参照ナレッジ（人間向け補助）
+- knowledge_human/be-tags-human-examples_2025-09-21.md（心理学タグの日本語辞書＋例文集）
+- knowledge_human/knowledge-human-readme_2025-09-21.md（使い方の要点）
+- knowledge_human/short-video-viral-structure_2025-09-21.md（画面設計・ショット割り）
  - 参考: BEタグ辞書は `knowledge/2025-09-21_be-tags.md` を参照します。
